@@ -46,12 +46,13 @@ public class PalindromeLinkedList_234 {
     // 反之，如果想倒序遍历链表，就可以在后序遍历位置操作：
     // 通过递归和后序遍历，模仿双指针实现回文判断的功能
     ListNode left;
+
     boolean isPalindrome2(ListNode head) {
         left = head;
         return traverse2(head);
     }
 
-    boolean traverse2(ListNode right){
+    boolean traverse2(ListNode right) {
         // base case
         if (right == null)
             return true;
@@ -66,21 +67,21 @@ public class PalindromeLinkedList_234 {
     // 方法三，优化空间复杂度
     // 1、先通过 双指针技巧 中的快慢指针来找到链表的中点：
     // 2、如果fast指针没有指向null，说明链表长度为奇数，slow还要再前进一步：
-    boolean isPalindrome3(ListNode head){
+    boolean isPalindrome3(ListNode head) {
         ListNode slow, fast;
         slow = fast = head;
-        while (fast != null && fast.next !=null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        if (fast!=null){
+        if (fast != null) {
             slow = slow.next;
         }
 
         ListNode left = head;
         ListNode right = reverse3(slow);
-        while (right!=null){
+        while (right != null) {
             if (left.val != right.val)
                 return false;
             left = left.next;
@@ -88,10 +89,11 @@ public class PalindromeLinkedList_234 {
         }
         return true;
     }
+
     // 这个反转写的还挺优雅的
-    ListNode reverse3(ListNode head){
+    ListNode reverse3(ListNode head) {
         ListNode pre = null, cur = head;
-        while(cur != null) {
+        while (cur != null) {
             ListNode next = cur.next;
             cur.next = pre;
             pre = cur;
