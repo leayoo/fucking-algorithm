@@ -1,7 +1,9 @@
 package binarytree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 // 二叉树前序遍历的两种思路
 public class PreorderTraverse {
@@ -37,6 +39,28 @@ public class PreorderTraverse {
         // 利用函数定义，后面接着右子树的前序遍历结果
         res.addAll(preorderTraverse2(root.right));
         return res;
+    }
+
+    // 非递归形式遍历二叉树
+    public List<Integer> preorderTraversal(TreeNode root){
+        List<Integer> resultList = new ArrayList<>();
+        Stack<TreeNode> treeStack = new Stack<>();
+
+        // 如果空树则返回
+        if (root == null)
+            return resultList;
+
+        treeStack.push(root);
+        while(!treeStack.isEmpty()){
+            TreeNode tempNode = treeStack.pop();
+            if(tempNode != null){
+                resultList.add(tempNode.val);
+                // 先序遍历，先压入右节点，再左节点，取出时顺序刚好相反。
+                treeStack.push(tempNode.right);
+                treeStack.push(tempNode.left);
+            }
+        }
+        return resultList;
     }
 }
 

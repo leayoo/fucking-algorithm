@@ -19,10 +19,10 @@ class OpenTheLock_752 {
         q.offer("0000");
         visited.add("0000");
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int sz = q.size();
             // 将当前队列中的所有节点向周围扩散
-            for (int i = 0; i<sz;i++){
+            for (int i = 0; i < sz; i++) {
                 String cur = q.poll();
                 // 判断是否到达终点
                 if (deads.contains(cur))
@@ -31,15 +31,15 @@ class OpenTheLock_752 {
                     return step;
 
                 // 将每一个节点的相邻节点加入队列
-                for (int j=0;j<4;j++){
-                    String up = plusOne(cur,j);
-                    if (!visited.contains(up)){
+                for (int j = 0; j < 4; j++) {
+                    String up = plusOne(cur, j);
+                    if (!visited.contains(up)) {
                         q.offer(up);
                         visited.add(up);
                     }
 
-                    String down = minusOne(cur,j);
-                    if (!visited.contains(down)){
+                    String down = minusOne(cur, j);
+                    if (!visited.contains(down)) {
                         q.offer(down);
                         visited.add(down);
                     }
@@ -60,31 +60,33 @@ class OpenTheLock_752 {
             ch[j] += 1;
         return new String(ch);
     }
+
     // 将 s[j] 向下拨动一次
-    String minusOne(String s, int j){
+    String minusOne(String s, int j) {
         char[] ch = s.toCharArray();
-        if (ch[j]=='0')
+        if (ch[j] == '0')
             ch[j] = '9';
         else
-            ch[j] -=1;
+            ch[j] -= 1;
         return new String(ch);
     }
+
     // BFS 框架，打印出所有可能的密码
-    void BFS(String target){
+    void BFS(String target) {
         Queue<String> q = new LinkedList<>();
         q.offer("0000");
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int sz = q.size();
             // 将当前队列中的所有节点向周围扩散
-            for (int i = 0; i<sz;i++){
+            for (int i = 0; i < sz; i++) {
                 String cur = q.poll();
                 // 判断是否到达终点
                 System.out.println(cur);
                 // 将每一个节点的相邻节点加入队列
-                for (int j=0;j<4;j++){
-                    String up = plusOne(cur,j);
-                    String down = minusOne(cur,j);
+                for (int j = 0; j < 4; j++) {
+                    String up = plusOne(cur, j);
+                    String down = minusOne(cur, j);
                     q.offer(up);
                     q.offer(down);
                 }
@@ -94,7 +96,7 @@ class OpenTheLock_752 {
     }
 
     // 双向 BFS
-    int openLock2(String[] deadends, String target){
+    int openLock2(String[] deadends, String target) {
         Set<String> deads = new HashSet<>();
         for (String s : deadends) deads.add(s);
         // 用集合不用队列，可以快速判断元素是否存在
@@ -106,11 +108,11 @@ class OpenTheLock_752 {
         q1.add("0000");
         q2.add(target);
 
-        while(!q1.isEmpty() && !q2.isEmpty()){
+        while (!q1.isEmpty() && !q2.isEmpty()) {
             // 哈希集合在遍历的过程中不能修改，用 temp 存储扩散结果
             Set<String> temp = new HashSet<>();
 
-            for (String cur :q1){
+            for (String cur : q1) {
                 // 判断是否到达终点
                 if (deads.contains(cur))
                     continue;
@@ -120,11 +122,11 @@ class OpenTheLock_752 {
                 visited.add(cur);
 
                 // 将一个节点的未遍历相邻节点加入集合
-                for (int j=0;j<4;j++){
-                    String up = plusOne(cur,j);
+                for (int j = 0; j < 4; j++) {
+                    String up = plusOne(cur, j);
                     if (!visited.contains(up))
                         temp.add(up);
-                    String down = minusOne(cur,j);
+                    String down = minusOne(cur, j);
                     if (!visited.contains(down))
                         temp.add(down);
                 }

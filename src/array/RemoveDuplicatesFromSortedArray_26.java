@@ -18,4 +18,10 @@ public class RemoveDuplicatesFromSortedArray_26 {
         // 数组长度为索引 +1
         return slow + 1;
     }
+
+    public static void main(String[] args) {
+        String s = "abcde";
+        System.out.println(s.substring(0,4));
+    }
+
 }
